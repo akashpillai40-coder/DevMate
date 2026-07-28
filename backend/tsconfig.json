@@ -1,0 +1,23 @@
+{
+  "compilerOptions": {
+    "target": "ES2022",
+    "module": "CommonJS",
+
+    "rootDir": "./src",   //source code lives in the src folder.
+    "outDir": "./dist",   //Compiled JavaScript goes dist
+
+    "strict": true,  //Typechecking
+
+    "esModuleInterop": true,
+
+    "moduleResolution": "node",
+
+    "skipLibCheck": true,
+
+    "forceConsistentCasingInFileNames": true
+  },
+
+  "include": ["src"],
+
+  "exclude": ["node_modules"]
+}
