@@ -1,6 +1,8 @@
 import express  from "express";
 import cors from "cors";
 
+import authRoutes from './routes/authRoutes'
+
 //creates express application
 const app = express();  
 
@@ -14,6 +16,9 @@ app.get("/", (req, res) => {
         message: "Inventra API is running",
     })
 })
+
+app.use('/api/auth', authRoutes)
+
 
 
 
