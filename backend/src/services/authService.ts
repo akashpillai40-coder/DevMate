@@ -2,6 +2,8 @@ import prisma from "../config/prisma";
 import bcrypt from "bcrypt"
 import jwt from "jsonwebtoken"
 
+
+        //----------------- Register user
 interface RegisterUserData {
     name: string;
     email: string;
@@ -9,10 +11,6 @@ interface RegisterUserData {
 }
 
 export const registerUser = async (data: RegisterUserData) => {
-   // Check email
-  // Hash password
-  // Save user
-  // Return user
 
   const existingUser = await prisma.user.findFirst({
      where: {
@@ -24,7 +22,7 @@ export const registerUser = async (data: RegisterUserData) => {
         throw new Error("Email already exists");
     }
   
-    //hashing
+    
 const hashedPassword = await bcrypt.hash(data.password, 10)
     const user = await prisma.user.create({
         data: {
@@ -37,6 +35,7 @@ const hashedPassword = await bcrypt.hash(data.password, 10)
     return user;
 };
 
+              //----------------- Login user
 interface LoginUserData{
     email: string;
     password: string;

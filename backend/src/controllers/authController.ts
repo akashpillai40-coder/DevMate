@@ -27,6 +27,7 @@ export const register = async (req: Request, res: Response) => {
            //-------Login User-----
 export const login = async( req: Request, res: Response ) => {
      const user = await loginUser(req.body); //given to service with data
+     res.status(200).json(user);
 }
 
              //-------Get user-----
