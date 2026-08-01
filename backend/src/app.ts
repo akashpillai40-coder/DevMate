@@ -2,6 +2,8 @@ import express  from "express";
 import cors from "cors";
 
 import authRoutes from './routes/authRoutes'
+import checkInRoutes from './routes/checkInRoutes'
+import { check } from "zod";
 
 //creates express application
 const app = express();  
@@ -18,6 +20,9 @@ app.get("/", (req, res) => {
 })
 
 app.use('/api/auth', authRoutes)
+//Checkin Routes
+app.use("/api/checkIn", checkInRoutes)
+app.use('/api/checkIn/today', checkInRoutes)
 
 
 

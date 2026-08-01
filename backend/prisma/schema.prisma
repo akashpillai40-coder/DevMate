@@ -6,6 +6,7 @@ datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
 }
+
 model User {
   id        Int      @id @default(autoincrement())
   name      String
@@ -13,4 +14,32 @@ model User {
   password  String
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+
+  checkIns  CheckIn[]
+  weeklySummary  WeeklySummary[]
+}
+
+model CheckIn {
+   id      String   @id @default(uuid())
+   userId  Int
+   user    User @relation(fields: [userId], references: [id])
+   date    DateTime @default(now())
+   todayLog  String
+   tomorrowLog  String
+   leetCode   Boolean @default(false)
+   leetCodeProblem   String?
+   gitPush    Boolean @default(false)
+
+   @@unique([userId, date])
+}
+
+model WeeklySummary {
+  id      String    @id @default(uuid())
+  userId  Int
+  user    User   @relation(fields: [userId], references: [id])
+  weekStart  DateTime
+  weekEnd    DateTime
+  summary    String
+  feedBack   String
+  createdAt  DateTime @default(now())
 }
