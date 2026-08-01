@@ -20,9 +20,10 @@ app.get("/", (req, res) => {
 })
 
 app.use('/api/auth', authRoutes)
-//Checkin Routes
+//CheckIn Routes
 app.use("/api/checkIn", checkInRoutes)
 app.use('/api/checkIn/today', checkInRoutes)
+
 
 
 

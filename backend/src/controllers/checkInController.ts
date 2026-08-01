@@ -1,6 +1,8 @@
 import { Request, Response } from "express";
 import prisma from "../config/prisma";
+    
 
+      //------------Daily Logs---------------//
 export const createCheckIn = async(req: Request, res: Response) => {
        try{
         const {todayLog, tomorrowLog, leetCode, leetCodeProblem, gitPush} = req.body
@@ -46,3 +48,6 @@ export const getTodayCheckIn = async (req: Request, res: Response) => {
     res.status(500).json({ message: error.message })
   }
 }
+
+         //------------Streaks History---------------//
+         
