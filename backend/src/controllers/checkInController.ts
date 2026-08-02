@@ -1,5 +1,6 @@
 import { Request, Response } from "express";
 import prisma from "../config/prisma";
+import { rewriteText } from "../services/sarvamAIServices";
     
 
       //------------Daily Logs---------------//
@@ -50,4 +51,33 @@ export const getTodayCheckIn = async (req: Request, res: Response) => {
 }
 
          //------------Streaks History---------------//
-         
+  export const getStreaks = async(req: Request, res: Response) => {
+       try{
+         const leetCodeCount = await prisma.checkIn.count({
+          where:{userId: req.user!.id, leetCode: true}
+         })
+         const gitPushCount = await prisma.checkIn.count({
+          where:{ userId: req.user!.id, gitPush: true}
+         })
+         res.json({ leetCodeCount, gitPushCount})
+       }catch(error: any) {
+         res.json({ message: error.message})
+       }
+  }
+
+   //------------AI Rewrite text---------------//
+   export const rewrite = async(res: Response, req: Request) => {
+      try{
+         const { text } = req.body
+
+         if(!text || text.trim()){
+          return res.status(400).json({ message: 'Text is required'})
+         }
+         const correctedText = await rewriteText(text) 
+          res.json({ correctedText})
+
+      }catch(error: any) {
+        res.status(500).json({ message: error.message })
+      }
+   }
+   
