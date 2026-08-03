@@ -18,7 +18,7 @@ export const createCheckIn = async(req: Request, res: Response) => {
             }
              
         })
-        res.status(201).json({checkIn})
+        res.status(201).json({ checkIn })
        }catch(error: any){
         res.status(500).json( {message: error.message})
        }
@@ -49,6 +49,24 @@ export const getTodayCheckIn = async (req: Request, res: Response) => {
     res.status(500).json({ message: error.message })
   }
 }
+        //------------Weekly History---------------//
+export const weeklyHistory = async(req: Request, res: Response) => {
+    try{
+        const weeklyLogs = await prisma.checkIn.findMany({
+        where: {
+             userId: req.user!.id,
+            
+        }, 
+        orderBy: {
+            date: 'desc'
+        }
+    })
+     res.json( {weeklyLogs})
+    }catch(error: any) {
+        res.status(500).json({ message: error.message})
+    }
+   
+}
 
          //------------Streaks History---------------//
   export const getStreaks = async(req: Request, res: Response) => {
@@ -73,7 +91,7 @@ export const getTodayCheckIn = async (req: Request, res: Response) => {
          if(!text || text.trim()){
           return res.status(400).json({ message: 'Text is required'})
          }
-         const correctedText = await rewriteText(text) 
+         const correctedText = await rewriteText(text) //AI service to rewrite the text
           res.json({ correctedText})
 
       }catch(error: any) {

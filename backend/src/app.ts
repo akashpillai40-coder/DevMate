@@ -3,7 +3,7 @@ import cors from "cors";
 
 import authRoutes from './routes/authRoutes'
 import checkInRoutes from './routes/checkInRoutes'
-import { check } from "zod";
+import summaryRoutes from './routes/checkInRoutes'
 
 //creates express application
 const app = express();  
@@ -23,6 +23,8 @@ app.use('/api/auth', authRoutes)
 //CheckIn Routes
 app.use("/api/checkIn", checkInRoutes)
 app.use('/api/checkIn/today', checkInRoutes)
+//Summary Routes
+app.use("/api/summary", summaryRoutes )
 
 
 
