@@ -61,7 +61,7 @@ export const weeklyHistory = async(req: Request, res: Response) => {
             date: 'desc'
         }
     })
-     res.json( {weeklyLogs})
+     res.json({ weeklyLogs })
     }catch(error: any) {
         res.status(500).json({ message: error.message})
     }

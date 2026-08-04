@@ -1,0 +1,28 @@
+version: '3.8'
+
+services:
+  backend:
+    build: .
+    ports:
+      - "8000:8000"
+    environment:
+      - DATABASE_URL=postgresql://devmate:devmatepass@db:5432/devmate
+      - PORT=8000
+      - JWT_SECRET_KEY=${JWT_SECRET_KEY}
+      - SARVAM_API_KEY=${SARVAM_API_KEY}
+    depends_on:
+      - db
+
+  db:
+    image: postgres:15-alpine
+    environment:
+      - POSTGRES_USER=devmate
+      - POSTGRES_PASSWORD=devmatepass
+      - POSTGRES_DB=devmate
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+
+volumes:
+  pgdata:

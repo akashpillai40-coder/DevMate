@@ -3,7 +3,7 @@ import bcrypt from "bcrypt"
 import jwt from "jsonwebtoken"
 
 
-        //----------------- Register user
+        //----------------- Register user---------
 interface RegisterUserData {
     name: string;
     email: string;
@@ -23,7 +23,8 @@ export const registerUser = async (data: RegisterUserData) => {
     }
   
     
-const hashedPassword = await bcrypt.hash(data.password, 10)
+const hashedPassword = await bcrypt.hash(data.password, 10);
+
     const user = await prisma.user.create({
         data: {
             name: data.name,
@@ -35,7 +36,7 @@ const hashedPassword = await bcrypt.hash(data.password, 10)
     return user;
 };
 
-              //----------------- Login user
+              //----------------- Login user---------
 interface LoginUserData{
     email: string;
     password: string;
@@ -69,10 +70,6 @@ export const loginUser = async(data: LoginUserData) => {
             name: user.name,
             email: user.email
         },
-       
     }
-    
-    
-  
 }
 

@@ -32,5 +32,18 @@ export const login = async( req: Request, res: Response ) => {
 
              //-------Get user-----
 export const getUser = async( req: Request, res: Response) => {
-    res.status(200).json(req.user);
+  try{
+     const user = await prisma.user.findUnique({
+      where: { id: req.user!.id },
+      select:{
+        id: true,
+        name: true,
+        email: true
+      }
+     })
+     res.status(200).json(user);
+  }catch(error: any) {
+     res.status(500).json({ message: error.message})
+  }
+   
 }
