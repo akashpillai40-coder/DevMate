@@ -17,7 +17,7 @@ export const register = async (req: Request, res: Response) => {
       });
     } else {
       res.status(500).json({
-        message: "Something went wrong",
+        message: "Something went wrong.",
       });
     }
   }
