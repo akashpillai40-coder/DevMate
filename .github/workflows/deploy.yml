@@ -20,6 +20,7 @@ jobs:
           password: ${{ secrets.DOCKER_PASSWORD }}
 
       - name: Build Docker Image
+        working-directory: ./backend
         run: |
           docker build -t akashpillai40/devmate-backend:latest .
 
