@@ -1,10 +1,10 @@
-import { useState } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
-import { useNavigate, Link } from 'react-router-dom'
-import { loginUser } from '../store/authSlice.ts'
-import type { AppDispatch, RootState } from '../store/store.ts'
+import { useState } from "react"
+import { useSelector, useDispatch } from "react-redux"
+import { Link, useNavigate } from "react-router-dom"
+import type { AppDispatch, RootState } from "../store/store.ts"
+import { registerUser } from "../store/authSlice"
 
-const LoginPage = () => {
+const RegisterPage = () => {
   const dispatch = useDispatch<AppDispatch>()
   const navigate = useNavigate()
 
@@ -13,8 +13,9 @@ const LoginPage = () => {
   )
 
   const [formData, setFormData] = useState({
-    email: '',
-    password: '',
+    name: "",
+    email: "",
+    password: "",
   })
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -27,42 +28,55 @@ const LoginPage = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
 
-    const result = await dispatch(loginUser(formData))
+    const result = await dispatch(registerUser(formData))
 
-    if (loginUser.fulfilled.match(result)) {
-      navigate('/dashboard')
+    if (registerUser.fulfilled.match(result)) {
+      navigate("/dashboard")
     }
   }
 
   return (
     <div className="min-h-screen bg-[#f7f6f2] text-[#111111]">
 
-      {/* Home button */}
+      {/* Home */}
       <div className="absolute top-7 left-6">
         <Link
           to="/"
-          className="text-xl font-black tracking-tight m-10"
+          className="inline-flex items-center gap-2 text-sm font-semibold text-gray-700 hover:text-black transition"
         >
-          DEVMATE
+          <span className="text-lg">←</span>
+          Home
         </Link>
       </div>
 
-      {/* Login container */}
+      {/* Register container */}
       <div className="min-h-screen flex items-center justify-center px-6">
 
-        <div className="w-full max-w-md m-20">
+        <div className="w-full max-w-md">
 
-        
+          {/* Brand */}
+          <div className="text-center mb-8">
+            <Link
+              to="/"
+              className="text-2xl font-black tracking-tight"
+            >
+              DEVMATE
+            </Link>
+
+            <p className="text-gray-500 mt-2 text-sm">
+              Start your daily engineering ritual.
+            </p>
+          </div>
 
           {/* Card */}
           <div className="bg-white border border-gray-200 rounded-2xl p-8 shadow-sm">
 
             <h1 className="text-2xl font-bold tracking-tight">
-              Log in to DevMate
+              Create your account
             </h1>
 
             <p className="text-gray-500 mt-2 mb-7 text-sm">
-              Continue your daily engineering ritual.
+              Build momentum, one day at a time.
             </p>
 
             {/* Error */}
@@ -76,6 +90,27 @@ const LoginPage = () => {
               onSubmit={handleSubmit}
               className="flex flex-col gap-5"
             >
+
+              {/* Name */}
+              <div>
+                <label
+                  htmlFor="name"
+                  className="block text-sm font-medium mb-2"
+                >
+                  Name
+                </label>
+
+                <input
+                  id="name"
+                  type="text"
+                  name="name"
+                  placeholder="Your name"
+                  value={formData.name}
+                  onChange={handleChange}
+                  className="w-full border border-gray-300 rounded-lg px-4 py-3 bg-white outline-none focus:border-black focus:ring-1 focus:ring-black transition"
+                  required
+                />
+              </div>
 
               {/* Email */}
               <div>
@@ -111,7 +146,7 @@ const LoginPage = () => {
                   id="password"
                   type="password"
                   name="password"
-                  placeholder="Enter your password"
+                  placeholder="Create a password"
                   value={formData.password}
                   onChange={handleChange}
                   className="w-full border border-gray-300 rounded-lg px-4 py-3 bg-white outline-none focus:border-black focus:ring-1 focus:ring-black transition"
@@ -119,32 +154,31 @@ const LoginPage = () => {
                 />
               </div>
 
-              {/* Login button */}
+              {/* Submit */}
               <button
                 type="submit"
                 disabled={isLoading}
                 className="w-full bg-black text-white py-3 rounded-lg font-semibold hover:bg-gray-800 transition disabled:opacity-50 disabled:cursor-not-allowed"
               >
-                {isLoading ? 'Logging in...' : 'Log in'}
+                {isLoading ? "Creating account..." : "Create account"}
               </button>
 
             </form>
 
-            {/* Register */}
+            {/* Login */}
             <p className="text-center text-sm text-gray-500 mt-7">
-              Don't have an account?{' '}
+              Already have an account?{" "}
 
               <Link
-                to="/register"
+                to="/login"
                 className="text-black font-semibold hover:underline"
               >
-                Get started
+                Log in
               </Link>
             </p>
 
           </div>
 
-          {/* Bottom text */}
           <p className="text-center text-xs text-gray-400 mt-6">
             Ship daily. Build momentum.
           </p>
@@ -155,4 +189,4 @@ const LoginPage = () => {
   )
 }
 
-export default LoginPage
+export default RegisterPage

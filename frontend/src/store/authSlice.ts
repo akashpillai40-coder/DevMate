@@ -1,19 +1,61 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit"
 
 import axios from "axios"
+import axiosInstance from "../api/axiosInstance"
+
+interface LoginData {
+  email: string
+  password: string
+}
+
+interface RegisterData {
+  name: string
+  email: string
+  password: string
+}
 
 
 
 export const loginUser = createAsyncThunk(
-   'auth/loginUser',
-   async(formData: { email: string, password: string }, { rejectWithValue }) => {
-    try{
-        const response = await axios.post('/auth/login', formData)
-        return response.data     //action.payload
-    }catch(error: any) {
-        return rejectWithValue(error.response?.data?.message || 'Login failed')
+  "auth/login",
+  async (
+    formData: LoginData,
+    { rejectWithValue }
+  ) => {
+    try {
+      const response = await axiosInstance.post(
+        "/api/auth/login",
+        formData
+      )
+
+      return response.data
+    } catch (error: any) {
+      return rejectWithValue(
+        error.response?.data?.message || "Login failed"
+      )
     }
-   }
+  }
+)
+
+export const registerUser = createAsyncThunk(
+  "auth/register",
+  async (
+    formData: RegisterData,
+    { rejectWithValue }
+  ) => {
+    try {
+      const response = await axiosInstance.post(
+        "/api/auth/register",
+        formData
+      )
+
+      return response.data
+    } catch (error: any) {
+      return rejectWithValue(
+        error.response?.data?.message || "Registration failed"
+      )
+    }
+  }
 )
 
 const authSlice = createSlice({
@@ -37,6 +79,8 @@ const authSlice = createSlice({
         }
     },
     extraReducers: (builder) => {
+
+        //LOGIN
         builder.addCase(loginUser.pending, (state) => {
             state.isLoading = false
             state.error = null
@@ -54,6 +98,26 @@ const authSlice = createSlice({
              state.isLoading = true
              state.error = action.payload as string
         })
+
+        
+    builder
+
+      // REGISTER
+      .addCase(registerUser.pending, (state) => {
+        state.isLoading = true
+        state.error = null
+      })
+
+      .addCase(registerUser.fulfilled, (state, action) => {
+        state.isLoading = false
+        state.user = action.payload.user
+        state.token = action.payload.token
+      })
+
+      .addCase(registerUser.rejected, (state, action) => {
+        state.isLoading = false
+        state.error = action.payload as string
+      })
     }
 })
 
