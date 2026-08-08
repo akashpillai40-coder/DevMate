@@ -1,7 +1,11 @@
+import LoginPage from "./Pages/LoginPage"
+
 
 const App = () => {
   return (
-    <div>App</div>
+    <div>
+      <LoginPage />
+      </div>
   )
 }
 
