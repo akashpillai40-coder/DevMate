@@ -11,7 +11,7 @@ const client = new SarvamAIClient({
 export const rewriteText = async (text: string): Promise<string> => {
   try {
     const response = await client.chat.completions({
-      model: "sarvam-105b",
+      model: "sarvam-30b",
 
       reasoning_effort: "low",
 
