@@ -31,7 +31,7 @@ const CheckInPage = () => {
     setRewriting(field)
     setError('')
     try {
-      const res = await axiosInstance.post('/checkin/rewrite', { text })
+      const res = await axiosInstance.post('/api/checkin/rewrite', { text })
       if (field === 'today') {
         setTodayLog(res.data.correctedText)
       } else {

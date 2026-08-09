@@ -84,11 +84,11 @@ export const weeklyHistory = async(req: Request, res: Response) => {
   }
 
    //------------AI Rewrite text---------------//
-   export const rewrite = async(res: Response, req: Request) => {
+   export const rewrite = async(req: Request, res: Response) => {
       try{
          const { text } = req.body
 
-         if(!text || text.trim()){
+         if(!text || !text.trim()){
           return res.status(400).json({ message: 'Text is required'})
          }
          const correctedText = await rewriteText(text) //AI service to rewrite the text
