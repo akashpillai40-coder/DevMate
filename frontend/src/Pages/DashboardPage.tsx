@@ -51,7 +51,7 @@ const Dashboard = () => {
         <section className="mb-10">
 
           <p className="text-sm text-gray-500 mb-2">
-            Welcome back 👋 {user?.name}
+            `Welcome back 👋 {user?.name}
           </p>
 
           <h1 className="text-4xl md:text-5xl font-black tracking-tight">
@@ -214,7 +214,10 @@ const Dashboard = () => {
             </p>
 
             <button
-              className="w-full mt-8 bg-white text-black py-3 rounded-lg font-semibold hover:bg-gray-200 transition"
+              onClick={() => {
+                navigate("/checkin")
+              }}
+              className="w-full mt-8 bg-white text-black py-3 rounded-lg font-semibold hover:bg-gray-200 transition cursor-pointer"
             >
               Start check-in
             </button>

@@ -6,6 +6,7 @@ import DashboardPage from "./Pages/DashboardPage";
 
 import ProtectedRoute from "./Components/ProtectedRoutes";
 import Dashboard from "./Pages/DashboardPage";
+import CheckInPage from "./Pages/CheckInPage";
 
 
 function App() {
@@ -23,10 +24,8 @@ function App() {
          {/* Protected routes */}
       <Route element={<ProtectedRoute />}>
 
-        <Route
-          path="/dashboard"
-          element={<Dashboard />}
-        />
+        <Route path="/dashboard" element={<Dashboard />} />
+        <Route path="/checkin" element={<CheckInPage />} />
 
       </Route>
 
