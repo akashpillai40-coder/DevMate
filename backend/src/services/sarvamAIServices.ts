@@ -7,13 +7,12 @@ const client = new SarvamAIClient({
 // --------------------------------------------------
 // Rewrite Check-in Text
 // --------------------------------------------------
-
 export const rewriteText = async (text: string): Promise<string> => {
   try {
     const response = await client.chat.completions({
-      model: "sarvam-30b",
+      model: "sarvam-105b",
 
-      reasoning_effort: "low",
+      reasoning_effort: null as any,
 
       max_tokens: 500,
 
@@ -30,17 +29,17 @@ ${text}`,
     const correctedText = response.choices[0]?.message?.content;
 
     if (!correctedText) {
-      console.log("Full Sarvam response:", response);
+      console.dir(response, { depth: null });
       throw new Error("No response from Sarvam AI");
     }
 
     return correctedText.trim();
+
   } catch (error: any) {
     console.error("Sarvam rewrite error:", error);
     throw new Error("Failed to rewrite text");
   }
 };
-
 // --------------------------------------------------
 // Generate Weekly Summary
 // --------------------------------------------------

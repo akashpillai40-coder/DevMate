@@ -102,7 +102,7 @@ const authSlice = createSlice({
 
       // REGISTER
       .addCase(registerUser.pending, (state) => {
-        state.isLoading = true
+        state.isLoading = false
         state.error = null
       })
 
