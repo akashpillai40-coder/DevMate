@@ -5,6 +5,7 @@ services:
     build: .
     ports:
       - "8000:8000"
+      # Docker automatically pulls missing variables from the local .env file on EC2
     environment:
       - DATABASE_URL=postgresql://devmate:devmatepass@db:5432/devmate
       - PORT=8000

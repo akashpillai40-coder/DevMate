@@ -53,7 +53,7 @@ const CheckInPage = () => {
     setSubmitting(true)
     setError('')
     try {
-      await axiosInstance.post('/checkin', {
+      await axiosInstance.post('/api/checkin', {
         todayLog,
         tomorrowLog,
         mood,

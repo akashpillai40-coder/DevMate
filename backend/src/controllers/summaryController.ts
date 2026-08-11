@@ -59,7 +59,7 @@ export const generateSummary = async(req: Request, res: Response)=> {
         res.status(500).json({ message: error.message})
     }
 }
-       //----------------All Weeks Summary (week 01 - 04)---------------//
+       //----------------All Weeks Summary (week 01 - 04) in a month---------------//
     export const getSummaryHistory = async(req: Request, res: Response) => {
         try{
            const userId = req.user!.id

@@ -34,18 +34,14 @@ jobs:
           host: ${{ secrets.EC2_HOST }}
           username: ${{ secrets.EC2_USER }}
           key: ${{ secrets.EC2_SSH_KEY }}
-
           script: |
             cd /home/ubuntu/devmate
 
             echo "Pulling latest Docker image..."
             docker pull akashpillai40/devmate-backend:latest
 
-            echo "Stopping and removing old containers..."
-            docker compose -f docker-compose.prod.yml down
-
-            echo "Starting new containers..."
-            docker compose -f docker-compose.prod.yml up -d
+            echo "Recreating backend container with minimal downtime..."
+            docker compose -f docker-compose.prod.yml up -d --force-recreate
 
             echo "Cleaning unused Docker images..."
             docker image prune -f
