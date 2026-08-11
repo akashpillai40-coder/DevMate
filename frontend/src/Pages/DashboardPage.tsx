@@ -51,7 +51,7 @@ const Dashboard = () => {
         <section className="mb-10">
 
           <p className="text-sm text-gray-500 mb-2">
-            Welcome back 👋 {user?.name}
+            Welcome back 👋 {user?.name as string}
           </p>
 
           <h1 className="text-4xl md:text-5xl font-black tracking-tight">

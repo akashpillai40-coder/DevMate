@@ -12,6 +12,27 @@ interface RegisterData {
   password: string
 }
 
+interface User {
+  id: number
+  name: string
+  email: string
+}
+
+interface AuthState {
+  user: User | null
+  token: string | null
+  isAuthenticated: boolean
+  isLoading: boolean
+  error: string | null
+}
+const initialState: AuthState = {
+  user: null,
+  token: localStorage.getItem("token") || null,
+  isAuthenticated: false,
+  isLoading: false,
+  error: null,
+}
+
 
 
 export const loginUser = createAsyncThunk(
@@ -57,14 +78,8 @@ export const registerUser = createAsyncThunk(
 )
 
 const authSlice = createSlice({
-    name: 'auth',
-    initialState: {
-        user: null,
-        token: localStorage.getItem('token') || null,
-        isAuthenticated: false,
-        isLoading: false,
-        error: null,
-    },
+  name: "auth",
+  initialState,
     reducers: {
         logout: (state) => {
            localStorage.removeItem('token')
@@ -80,7 +95,7 @@ const authSlice = createSlice({
 
         //LOGIN
         builder.addCase(loginUser.pending, (state) => {
-            state.isLoading = false
+            state.isLoading = true
             state.error = null
         })
         builder.addCase(loginUser.fulfilled, (state, action) => {
@@ -93,7 +108,7 @@ const authSlice = createSlice({
         })
         builder.addCase(loginUser.rejected, (state, action) => {
              state.isAuthenticated = false
-             state.isLoading = true
+             state.isLoading = false
              state.error = action.payload as string
         })
 
@@ -102,7 +117,7 @@ const authSlice = createSlice({
 
       // REGISTER
       .addCase(registerUser.pending, (state) => {
-        state.isLoading = false
+        state.isLoading = true
         state.error = null
       })
 
