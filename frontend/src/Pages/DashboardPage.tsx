@@ -68,7 +68,7 @@ const Dashboard = () => {
             <p className="text-sm text-gray-500">Current streak</p>
 
             <div className="flex items-end gap-2 mt-4">
-              <span className="text-4xl font-black">7</span>
+              <span className="text-4xl font-black">Update Soon...</span>
 
               <span className="text-gray-500 mb-1">days 🔥</span>
             </div>

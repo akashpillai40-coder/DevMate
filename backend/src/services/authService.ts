@@ -57,7 +57,7 @@ export const loginUser = async(data: LoginUserData) => {
      if(!isMatch) {
        
         throw new Error ("Invalid email or password")
-     }
+    }
 
      const token =  jwt.sign({
                        id:user.id}, process.env.JWT_SECRET_KEY!,{
